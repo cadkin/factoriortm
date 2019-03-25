@@ -1,0 +1,20 @@
+Mini Challenge 08 - Cameron V. Adkins
+
+Repository:
+https://github.com/cadkin/CS302PF
+git@github.com:cadkin/CS302PF.git
+
+Rubric:
+| Item                                                      | Points |
+| Create recognized mod (game can load and enable it)       | +10    |
+| Write simple lua test program                             | +10    |
+| Investigate Xavante web server and run simple test site   | +10    |
+| Run Xavante web server from within Factorio               | +10    |
+
+Time Log:
+| Item                                                               | Time   |
+| Setup repository, specified this weeks' rubric and desired results | 2 hrs  |
+
+Result Report:
+
+
