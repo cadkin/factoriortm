@@ -10,3 +10,6 @@
 [submodule "lib/coxpcall"]
 	path = contrib/coxpcall
 	url = https://github.com/keplerproject/coxpcall.git
+[submodule "contrib/luafs"]
+	path = contrib/luafs
+	url = https://github.com/keplerproject/luafilesystem.git
