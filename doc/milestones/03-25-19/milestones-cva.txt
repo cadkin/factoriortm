@@ -20,8 +20,8 @@ Time Log:
 |--------------------------------------------------------------------------------------------------------------------------------------------+-------|
 | Setup repository, specified this weeks' rubric and desired results (in lab).                                                               | 2 hrs |
 | Spent some time working on learning basic struture of Lua, worked on getting Xavante load as a module. Added all required modules to repo. | 2 hrs |
+| Actually got Xavante to work seperate of WSAPI. More tweaking to repo.                                                                     | 2 hrs |
 |--------------------------------------------------------------------------------------------------------------------------------------------+-------|
-
 
 Result Report:
 
