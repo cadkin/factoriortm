@@ -1,0 +1,12 @@
+[submodule "lib/copas"]
+	path = lib/copas
+	url = https://github.com/keplerproject/copas.git
+[submodule "lib/xavante"]
+	path = lib/xavante
+	url = https://github.com/keplerproject/xavante.git
+[submodule "lib/luasocket"]
+	path = lib/luasocket
+	url = https://github.com/diegonehab/luasocket.git
+[submodule "lib/coxpcall"]
+	path = lib/coxpcall
+	url = https://github.com/keplerproject/coxpcall.git
