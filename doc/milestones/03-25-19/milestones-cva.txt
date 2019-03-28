@@ -9,7 +9,7 @@ Rubric:
 | Item                                                     | Points | Complete |
 |----------------------------------------------------------+--------+----------|
 | Create recognized mod (game can load and enable it).     | +10    |          |
-| Write simple Lua test program.                           | +10    |          |
+| Write simple Lua test program.                           | +10    | Yes      |
 | Investigate Xavante web server and run simple test site. | +10    |          |
 | Run Xavante web server from within Factorio.             | +10    |          |
 |----------------------------------------------------------+--------+----------|
