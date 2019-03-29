@@ -5,7 +5,7 @@ local hredir = require "xavante.redirecthandler"
 local xavante = require "xavante"
 
 -- Define here where Xavante HTTP documents scripts are located
-local webDir = "./"
+local webDir = "./html/"
 
 local simplerules = {
     { -- URI remapping example
