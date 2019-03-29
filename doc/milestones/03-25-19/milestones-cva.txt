@@ -1,28 +1,33 @@
-Mini Challenge 08 - Cameron V. Adkins
+Mini Challenge 08 - Cameron V. Adkins (Partner: Aident Rutter)
 
 Repository:
 https://github.com/cadkin/CS302PF
 git@github.com:cadkin/CS302PF.git
 
 Rubric:
-|----------------------------------------------------------+--------+----------|
-| Item                                                     | Points | Complete |
-|----------------------------------------------------------+--------+----------|
-| Create recognized mod (game can load and enable it).     | +10    |          |
-| Write simple Lua test program.                           | +10    | Yes      |
-| Investigate Xavante web server and run simple test site. | +10    | Yes      |
-| Run Xavante web server from within Factorio.             | +10    |          |
-|----------------------------------------------------------+--------+----------|
+|----------------------------------------------------------+--------+---------------|
+| Item                                                     | Points | Complete      |
+|----------------------------------------------------------+--------+---------------|
+| Create recognized mod (game can load and enable it).     | +10    | Yes (Partner) |
+| Write simple Lua test program.                           | +10    | Yes           |
+| Investigate Xavante web server and run simple test site. | +10    | Yes           |
+| Run Xavante web server from within Factorio.             | +10    | No            |
+|----------------------------------------------------------+--------+---------------|
 
 Time Log:
-|--------------------------------------------------------------------------------------------------------------------------------------------+-------|
-| Item                                                                                                                                       | Time  |
-|--------------------------------------------------------------------------------------------------------------------------------------------+-------|
-| Setup repository, specified this weeks' rubric and desired results (in lab).                                                               | 2 hrs |
-| Spent some time working on learning basic struture of Lua, worked on getting Xavante load as a module. Added all required modules to repo. | 2 hrs |
-| Actually got Xavante to work seperate of WSAPI. More tweaking to repo.                                                                     | 2 hrs |
-|--------------------------------------------------------------------------------------------------------------------------------------------+-------|
+|--------------------------------------------------------------------------------------------------------------------------------------------+---------|
+| Item                                                                                                                                       | Time    |
+|--------------------------------------------------------------------------------------------------------------------------------------------+---------|
+| Setup repository, specified this weeks' rubric and desired results (in lab).                                                               | 2 hrs   |
+| Spent some time working on learning basic struture of Lua, worked on getting Xavante load as a module. Added all required modules to repo. | 2 hrs   |
+| Actually got Xavante to work seperate of WSAPI. More tweaking to repo.                                                                     | 2 hrs   |
+| Makefile for Xavante modules.                                                                                                              | 0.5 hrs |
+|--------------------------------------------------------------------------------------------------------------------------------------------+---------|
 
 Result Report:
-
-
+Overall, the challenge went fairly well. Most of the setup tasks were complete and consistently
+work. However, there is still some work to be done with the Factorio implmentation. The setup for
+the Xavante web server took much longer than expected due to some of the complications of the
+dependencies. However, after learning how Lua resolves dependencies and working through the issues
+I was able to get the server to host a simple test web page. The next steps are to ensure that we
+can actually make it work within the game and start figuring out how to implement the map output.
