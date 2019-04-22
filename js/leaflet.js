@@ -18,8 +18,8 @@ L.tileLayer('leaflet-tiles/{z}/{x}/{y}.jpg', {
 		attribution: 'Aiden Rutter and Cameron Adkins'
 }).addTo(map);
 
-L.marker([51.5, -0.09]).addTo(map)
-		.bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+L.marker([-0.085938,-0.55908]).addTo(map)
+		.bindPopup('My character.')
         .openPopup();
         
 map.toggleFullscreen(); // Either go fullscreen, or cancel the existing fullscreen.

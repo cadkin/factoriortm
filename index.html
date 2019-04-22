@@ -63,7 +63,11 @@ mymap.on('moveend', function (e) {
 });
 	
 L.tileLayer("leaflet-tiles/{z}/{y}/{x}.jpg").addTo(mymap); // set relative path to your tiles here
-	
+
+L.marker([-0.085938,-0.55908]).addTo(mymap)
+		.bindPopup('My character.')
+        .openPopup();
+
 </script>
 
 </body>
