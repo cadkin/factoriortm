@@ -12,10 +12,10 @@ var map = L.map('map', {
     fullscreenControl: {
         pseudoFullscreen: true // if true, fullscreen to page width and height
     }
-}).setView([51.505, -0.09], 13);
+}).setView([1.0, 0.0], 0.0);
 
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+L.tileLayer('leaflet-tiles/{z}/{x}/{y}.jpg', {
+		attribution: 'Aiden Rutter and Cameron Adkins'
 }).addTo(map);
 
 L.marker([51.5, -0.09]).addTo(map)
