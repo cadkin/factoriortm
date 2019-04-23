@@ -1,25 +1,18 @@
 require("lib.screenshot")
 
--- On world creation, save the currently generated chunks.
+g_seed = 0
+
+-- On init, read the map seed and use it to store our map data.
 script.on_init(
     function()
-        --[[
-        for chunk in game.surfaces["nauvis"].get_chunks() do
-            if game.surfaces["nauvis"].is_chunk_generated(chunk) then
-                game.write_file("chunks.log", "LOADED " .. chunk.x .. " " .. chunk.y .. "\n", true)
-                sshot_chunk(chunk)
-            end
-        end
-
-        --game.set_wait_for_screenshots_to_finish()
-        --]]
+        g_seed = game["default_map_gen_settings"]["seed"]
     end
 )
 
 -- When a chunk is charted, save a screenshot of it.
 script.on_event({defines.events.on_chunk_charted},
     function(e)
-        game.write_file("chunks.log", "CHARTED " .. e.position.x .. " " .. e.position.y .. "\n", true)
+        game.write_file("mapdata/" .. g_seed .. "/socket/chunks.socket", "CHARTED " .. e.position.x .. " " .. e.position.y .. "\n", true)
         sshot_chunk(e.position)
     end
 )
@@ -30,7 +23,7 @@ script.on_nth_tick(60,
         -- For each player, update their position and write their positions to a file.
         for index, player in pairs(game.connected_players) do
             --player.print(player.position.x.." "..player.position.y);
-            game.write_file("test.log", "PLAYER " .. player.position.x .. " " .. player.position.y .. "\n", true);
+            game.write_file("mapdata/" .. g_seed .. "/socket/player.socket", "PLAYER " .. player.name .. " "  .. player.position.x .. " " .. player.position.y .. "\n", true);
         end
     end
 )
