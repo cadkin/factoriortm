@@ -1,0 +1,11 @@
+{
+    "name": "factoriortm",
+    "version": "0.1.0",
+    "title": "Factorio Real-Time Map",
+    "author": "People you don't know",
+    "contact": "",
+    "homepage": "",
+    "factorio_version": "0.16",
+    "dependencies": ["base >= 0.16"],
+    "description": "Produces a realtime view of the game world viewable in a web browser."
+}
