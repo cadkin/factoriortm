@@ -9,10 +9,10 @@
    <!-- Scripts for reading data thru the socket -->
    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-	<style> 
+	<style>
 .leaflet-container {
 	background-color: #000; }
-#mapid { 
+#mapid {
 	height: 100%;
 	width: 100%;
 	border: 1px solid black }
@@ -23,55 +23,7 @@
 
 <div id="mapid"></div>
 
-<script>
-var loadBoundary = function ()
-{
-	var qs = window.location.search;
-	if (qs.length > 1) {
-		qs = qs.substring(1);
-		qs = qs.split(',');
-	}
-	if (qs.length === 3) {
-		qs[0] = Number.parseFloat(qs[0]);
-		qs[1] = Number.parseFloat(qs[1]);
-		qs[2] = Number.parseInt(qs[2]);
-	} else {
-		qs = [0, 0, 10] // Set default center and zoom here
-	}
-
-	return qs;
-}
-
-var saveBoundary = function ()
-{
-	var center = mymap.getCenter();
-	var zoom = Number.parseFloat(mymap.getZoom()).toPrecision(1);
-	var url = '?' + center.lat.toPrecision(5) + ',' + center.lng.toPrecision(5) + ',' + zoom;
-	window.history.replaceState({}, '', url);
-}
-
-var b = loadBoundary();
-console.log(b);
-
-var mymap = L.map(
-	'mapid', {
-		crs: L.CRS.Simple,
-		maxZoom: 10,
-		minZoom: 1,
-		wheelPxPerZoomLevel: 500
-	}).setView([b[0], b[1]], b[2]);
-
-mymap.on('moveend', function (e) {
-	saveBoundary();
-});
-	
-L.tileLayer("/home/solsane/classes/CS302PF/web/leaflet-tiles/{z}/{y}/{x}.jpg").addTo(mymap); // set relative path to your tiles here
-
-// L.marker([-0.085938,-0.55908]).addTo(mymap)
-// 		.bindPopup('My character.')
-//         .openPopup();
-
-</script>
+<script src="js/main.js"></script>
 
 </body>
 </html>
