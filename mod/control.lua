@@ -4,6 +4,7 @@ require("lib.screenshot")
 script.on_init(
     function()
         global.g_seed = game["default_map_gen_settings"]["seed"]
+        game.write_file("mapdata/" .. global.g_seed .. "/socket/chunks.socket", "WSEED " .. global.g_seed .. "\n", true)
 
         -- If the number of ticks in the game is greater than 600 (10 seconds), then this must be a pre-existing save. Screenshot everything.
         if game.tick > 600 then
@@ -15,7 +16,7 @@ script.on_init(
 -- When a chunk is charted, save a screenshot of it.
 script.on_event({defines.events.on_chunk_charted},
     function(e)
-        game.write_file("mapdata/" .. global.g_seed .. "/socket/chunks.socket", "CHARTED " .. e.position.x .. " " .. e.position.y .. "\n", true)
+        game.write_file("mapdata/" .. global.g_seed .. "/socket/chunks.socket", "CHUNK " .. e.position.x .. " " .. e.position.y .. "\n", true)
 
         -- Save the time of day so we can restore it later.
         local time = game.surfaces["nauvis"].daytime
@@ -26,17 +27,6 @@ script.on_event({defines.events.on_chunk_charted},
         game.surfaces["nauvis"].daytime = time
     end
 )
-
--- When something is built, save a screenshot of it.
---[[
-script.on_event({defines.events.on_built_entity},
-    function(e)
-        --game.write_file("mapdata/" .. global.g_seed .. "/socket/chunks.socket", "BUILT " .. e..x .. " " .. e.position.y .. "\n", true)
-        game.write_file("mapdata/" .. global.g_seed .. "/socket/chunks.socket", "BUILT\n", true)
-        --sshot_chunk(e.position)
-    end
-)
---]]
 
 -- Handle the player position data.
 script.on_nth_tick(60,
