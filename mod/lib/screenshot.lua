@@ -19,7 +19,7 @@ function sshot_all()
     -- 'nauvis' is the default surface in the game (the one the player starts on)
     for chunk in game.surfaces["nauvis"].get_chunks() do
         if game.surfaces["nauvis"].is_chunk_generated(chunk) then
-            game.write_file("mapdata/" .. global.g_seed .. "/socket/chunks.socket", "CHUNK " .. chunk.x .. " " .. chunk.y .. "\n", true)
+            game.write_file("mapdata/" .. global.g_seed .. "/socket/chunks.socket", "IMPORT " .. chunk.x .. " " .. chunk.y .. "\n")
             sshot_chunk(chunk)
         end
     end
