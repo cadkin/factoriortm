@@ -9,23 +9,33 @@ import os
 from glob import glob
 import sys
 import tarfile
-
+import time
+# local file
+import log
 from PIL import Image
 from tqdm import tqdm
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 
+from map_util import *
 USAGE = '''
 Usage: python3 factoriomap.py [source] [destination]
    source: directory, .tar file, or single .jpg
    destination: directory
 '''
+class EventHandler(FileSystemEventHandler):
+    def on_modified(self, event):
+        print("event with file {}, type {}".format(event.src_path, event.event_type))
+        # Perform the modification to the changed file
+        chunk_to_tiles(event.src_path)
+        for zoom in range(9, 0, -1):
+            tiles = sorted(
+                glob('{}{}/*/*.jpg'.format(sys.argv[2], zoom+1)),
+                key=tile_coordinates)
+            for tile in tqdm(tiles):
+                zoom_out(tile, zoom)
 
 def main():
-    """Main executable function."""
-    # Verify arguments; print usage on failure.
-    if len(sys.argv) < 3 or not os.path.isdir(sys.argv[2]):
-        print(USAGE)
-        sys.exit()
-
     if os.path.isfile(sys.argv[1]):
         # If tar file
         if sys.argv[1].split('.')[-1] == 'tar':
@@ -48,72 +58,21 @@ def main():
             key=tile_coordinates)
         for tile in tqdm(tiles):
             zoom_out(tile, zoom)
+    
+    """Main executable function."""
+    # Verify arguments; print usage on failure.
+    if len(sys.argv) < 3 or not os.path.isdir(sys.argv[2]):
+        print(USAGE)
+        sys.exit()
 
-def zoom_out(filename, zoom):
-    """Shrink and combine tiles to zoom view out."""
-    source_x, source_y = tile_coordinates(filename)
-    tile_x = source_x // 2
-    tile_y = source_y // 2
-    origin_x = tile_x * 2
-    origin_y = tile_y * 2
+    observer = Observer()
+    event_handler = EventHandler()
 
-    if not os.path.isfile(
-            '{}{}/{}/{}.jpg'.format(sys.argv[2], zoom, tile_y, tile_x)):
-        os.makedirs('{}{}/{}'.format(sys.argv[2], zoom, tile_y), exist_ok=True)
+    observer.schedule(event_handler, sys.argv[1], recursive=True)
+    observer.start()
 
-        tile_image = Image.new('RGB', (512, 512))
-        for x_adj in range(2):
-            for y_adj in range(2):
-                try:
-                    paste_image = Image.open('{}{}/{}/{}.jpg'.format(
-                        sys.argv[2], zoom+1, origin_y+y_adj, origin_x+x_adj))
-                except FileNotFoundError:
-                    paste_image = Image.new('RGB', (256, 256))
-
-                tile_image.paste(
-                    paste_image,
-                    (x_adj*256, y_adj*256))
-
-        tile_image.resize((256, 256)).save('{}{}/{}/{}.jpg'.format(
-            sys.argv[2], zoom, tile_y, tile_x))
-
-def chunk_coordinates(filename):
-    """Extract chunk coordinates from filename."""
-    _, chunk_x, chunk_y = os.path.splitext(filename)[0].split('_')
-    return (int(chunk_x), int(chunk_y))
-
-def tile_coordinates(path):
-    """Compute tile coordinates."""
-    explosion = os.path.splitext(path)[0].split('/')
-    return (int(explosion[-1]), int(explosion[-2]))
-
-def chunk_to_tiles(chunk, chunkname=None):
-    """Convert the chunk screenshot to Leaflet tiles at maximum zoom."""
-    chunk_image = Image.open(chunk)
-    if chunkname is None:
-        chunk_x, chunk_y = chunk_coordinates(chunk)
-    else:
-        chunk_x, chunk_y = chunk_coordinates(chunkname)
-    tile_x = chunk_x*4
-    tile_y = chunk_y*4
-
-    if not os.path.isfile(
-            '{}{}/{}/{}.jpg'.format(sys.argv[2], 10, tile_y, tile_x)):
-        for x_adj in range(4):
-            for y_adj in range(4):
-                os.makedirs(
-                    '{}{}/{}'.format(
-                        sys.argv[2], 10, tile_y+y_adj),
-                    exist_ok=True)
-
-                chunk_image.crop(
-                    (
-                        x_adj*256,
-                        y_adj*256,
-                        (x_adj+1)*256,
-                        (y_adj+1)*256)
-                    ).save('{}{}/{}/{}.jpg'.format(
-                        sys.argv[2], 10, tile_y+y_adj, tile_x+x_adj))
+    while True:
+        time.sleep(0.0001)
 
 if __name__ == '__main__':
     main()
