@@ -8,7 +8,7 @@ function sshot_chunk(chunk)
     local chunk_y = chunk.y * tiles_per_chunk
 
     -- Add 16 to get center of chunk for screenshot.
-    game.take_screenshot({position = {chunk_x + 16, chunk_y + 16}, resolution = {chunk_res, chunk_res}, path = "mapdata/" .. global.g_seed .. "/raw/c" .. chunk.x .. "_" ..chunk.y .. ".jpg", show_gui = false })
+    game.take_screenshot({position = {chunk_x + 16, chunk_y + 16}, resolution = {chunk_res, chunk_res}, path = "mapdata/" .. global.g_seed .. "/raw/c_" .. chunk.x .. "_" ..chunk.y .. ".jpg", show_gui = false })
 end
 
 -- Function that screenshots all generated chunks.
