@@ -1,0 +1,11 @@
+{
+    "name": "factoriortm",
+    "version": "0.1.0",
+    "title": "Factorio Real-Time Map",
+    "author": "",
+    "contact": "",
+    "homepage": "https://github.com/cadkin/CS302PF",
+    "factorio_version": "0.16",
+    "dependencies": ["base >= 0.16"],
+    "description": "Produces a realtime view of the game world viewable in a web browser."
+}
