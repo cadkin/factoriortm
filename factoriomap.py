@@ -15,7 +15,7 @@ from tqdm import tqdm
 
 USAGE = '''
 Usage: python3 factoriomap.py [source] [destination]
-   source: directory or .tar file
+   source: directory, .tar file, or single .jpg
    destination: directory
 '''
 
@@ -27,10 +27,16 @@ def main():
         sys.exit()
 
     if os.path.isfile(sys.argv[1]):
-        archive = tarfile.open(sys.argv[1])
-        chunks = sorted(archive.getnames(), key=chunk_coordinates)
-        for chunk in tqdm(chunks):
-            chunk_to_tiles(archive.extractfile(chunk), chunk)
+        # If tar file
+        if sys.argv[1].split('.')[-1] == 'tar':
+            archive = tarfile.open(sys.argv[1])
+            chunks = sorted(archive.getnames(), key=chunk_coordinates)
+            for chunk in tqdm(chunks):
+                chunk_to_tiles(archive.extractfile(chunk), chunk)
+
+        else:        # singular file
+            chunk_to_tiles(sys.argv[1])
+
     else:
         chunks = sorted(glob(sys.argv[1]+'chunk_*.jpg'), key=chunk_coordinates)
         for chunk in tqdm(chunks):
