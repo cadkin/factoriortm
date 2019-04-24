@@ -33,8 +33,10 @@ script.on_nth_tick(60,
     function (e)
         -- For each player, update their position and write their positions to a file.
         for index, player in pairs(game.connected_players) do
-            --player.print(player.position.x.." "..player.position.y);
-            game.write_file("mapdata/" .. global.g_seed .. "/socket/player.socket", "PLAYER " .. player.name .. " "  .. player.position.x .. " " .. player.position.y .. "\n", true);
+            if player.name ~= "" then
+                --player.print(player.position.x.." "..player.position.y);
+                game.write_file("mapdata/" .. global.g_seed .. "/socket/player.socket", "PLAYER " .. player.name .. " "  .. player.position.x .. " " .. player.position.y .. "\n");
+            end
         end
     end
 )
