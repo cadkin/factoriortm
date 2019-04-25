@@ -31,7 +31,7 @@ class EventHandler(FileSystemEventHandler):
             chunk_to_tiles(event.src_path)
             for zoom in range(9, 0, -1):
                 x, y = chunk_coordinates(event.src_path)
-                tile = '{}{}/{}/{}.jpg'.format(sys.argv[2], zoom+1, x, y)
+                tile = '{}{}/{}/{}.jpg'.format(sys.argv[2], zoom+1, y, x)
                 zoom_out(tile, zoom)
 
     def on_created(self, event):
@@ -41,7 +41,7 @@ class EventHandler(FileSystemEventHandler):
             chunk_to_tiles(event.src_path)
             for zoom in range(9, 0, -1):
                 x, y = chunk_coordinates(event.src_path)
-                tile = '{}{}/{}/{}.jpg'.format(sys.argv[2], zoom+1, x, y)
+                tile = '{}{}/{}/{}.jpg'.format(sys.argv[2], zoom+1, y, x)
                 zoom_out(tile, zoom)
 
 
@@ -58,7 +58,7 @@ def main():
     if not os.path.exists(sys.argv[1]):
         os.makedirs(sys.argv[1])
 
-        
+
     if os.path.isfile(sys.argv[1]):
         # If tar file
         if sys.argv[1].split('.')[-1] == 'tar':
@@ -78,7 +78,7 @@ def main():
         if not os.path.exists(sys.argv[1]):
             os.makedirs(sys.argv[1])
 
-        chunks = sorted(glob(sys.argv[1]+'chunk_*.jpg'), key=chunk_coordinates)
+        chunks = sorted(glob(sys.argv[1]+'c_*.jpg'), key=chunk_coordinates)
         for chunk in tqdm(chunks):
             chunk_to_tiles(chunk)
 
@@ -88,7 +88,7 @@ def main():
             key=tile_coordinates)
         for tile in tqdm(tiles):
             zoom_out(tile, zoom)
-    
+
     observer = Observer()
     event_handler = EventHandler()
 
