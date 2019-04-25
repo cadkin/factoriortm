@@ -26,15 +26,12 @@ def zoom_out(filename, zoom):
             except FileNotFoundError:
                 paste_image = Image.new('RGB', (256, 256))
 
-            tile_image.paste(
-                paste_image,
-                (x_adj*256, y_adj*256))
+            tile_image.paste(paste_image,(x_adj*256, y_adj*256))
 
     tile_image.resize((256, 256)).save('{}{}/{}/{}.jpg'.format(
         sys.argv[2], zoom, tile_y, tile_x))
 
-    print("Saved tile image to {}{}/{}/{}.jpg".format(
-        sys.argv[2], zoom, tile_y, tile_x))
+    print("zoom_out(): Saved tile image to {}{}/{}/{}.jpg".format(sys.argv[2], zoom, tile_y, tile_x))
 
 def chunk_coordinates(filename):
     _, chunk_x, chunk_y = os.path.splitext(filename)[0].split('_')
@@ -57,19 +54,10 @@ def chunk_to_tiles(chunk, chunkname=None):
 
     for x_adj in range(4):
         for y_adj in range(4):
-            os.makedirs(
-                '{}{}/{}'.format(
-                    sys.argv[2], 10, tile_y+y_adj),
-                exist_ok=True)
+            os.makedirs('{}{}/{}'.format(sys.argv[2], 10, tile_y+y_adj), exist_ok=True)
 
-            chunk_image.crop(
-                (
-                    x_adj*256,
-                    y_adj*256,
-                    (x_adj+1)*256,
-                    (y_adj+1)*256)
-                ).save('{}{}/{}/{}.jpg'.format(
-                    sys.argv[2], 10, tile_y+y_adj, tile_x+x_adj))
+            chunk_image.crop((x_adj*256, y_adj*256, (x_adj+1)*256, (y_adj+1)*256)).save('{}{}/{}/{}.jpg'.format(
+                sys.argv[2], 10, tile_y+y_adj, tile_x+x_adj))
 
-            print("Saved tile image to {}{}/{}/{}.jpg".format(sys.argv[2], 10, tile_y, tile_x))
+            print("chunk_to_tiles(): Saved tile image to {}{}/{}/{}.jpg".format(sys.argv[2], 10, tile_y+y_adj, tile_x+x_adj))
 
