@@ -30,24 +30,20 @@ class EventHandler(FileSystemEventHandler):
             # Perform the modification to the changed file
             chunk_to_tiles(event.src_path)
             for zoom in range(9, 0, -1):
-                tiles = sorted(
-                    glob('{}{}/*/*.jpg'.format(sys.argv[2], zoom+1)),
-                    key=tile_coordinates)
-                for tile in tqdm(tiles):
-                    zoom_out(tile, zoom)
-    
+                x, y = chunk_coordinates(event.src_path)
+                tile = '{}{}/{}/{}.jpg'.format(sys.argv[2], zoom+1, x, y)
+                zoom_out(tile, zoom)
+
     def on_created(self, event):
         if event.is_directory:
             print("event with file {}, type {}".format(event.src_path, event.event_type))
             # Perform the modification to the changed file
             chunk_to_tiles(event.src_path)
             for zoom in range(9, 0, -1):
-                tiles = sorted(
-                    glob('{}{}/*/*.jpg'.format(sys.argv[2], zoom+1)),
-                    key=tile_coordinates)
-                for tile in tqdm(tiles):
-                    zoom_out(tile, zoom)
-        
+                x, y = chunk_coordinates(event.src_path)
+                tile = '{}{}/{}/{}.jpg'.format(sys.argv[2], zoom+1, x, y)
+                zoom_out(tile, zoom)
+
 
 def main():
     """Main executable function."""
@@ -73,6 +69,11 @@ def main():
 
         else:        # singular file
             chunk_to_tiles(sys.argv[1])
+            for zoom in range(9, 0, -1):
+                x, y = chunk_coordinates(sys.argv[1])
+                tile = '{}{}/{}/{}.jpg'.format(sys.argv[2], zoom+1, x, y)
+                zoom_out(tile, zoom)
+
     else:
         if not os.path.exists(sys.argv[1]):
             os.makedirs(sys.argv[1])
@@ -95,7 +96,8 @@ def main():
     observer.start()
 
     while True:
-        time.sleep(0.0001)
+        # time.sleep(0.0001)
+        pass
 
 if __name__ == '__main__':
     main()
