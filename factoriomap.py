@@ -25,7 +25,7 @@ Usage: python3 factoriomap.py [source] [destination]
 '''
 class EventHandler(FileSystemEventHandler):
     def on_modified(self, event):
-        if event.isfile:
+        if event.is_directory:
             print("event with file {}, type {}".format(event.src_path, event.event_type))
             # Perform the modification to the changed file
             chunk_to_tiles(event.src_path)
@@ -37,7 +37,7 @@ class EventHandler(FileSystemEventHandler):
                     zoom_out(tile, zoom)
     
     def on_created(self, event):
-        if event.isfile:
+        if event.is_directory:
             print("event with file {}, type {}".format(event.src_path, event.event_type))
             # Perform the modification to the changed file
             chunk_to_tiles(event.src_path)
@@ -52,10 +52,17 @@ class EventHandler(FileSystemEventHandler):
 def main():
     """Main executable function."""
     # Verify arguments; print usage on failure.
-    if len(sys.argv) < 3 or not os.path.isdir(sys.argv[2]):
+    if len(sys.argv) < 3:
         print(USAGE)
-        sys.exit()
 
+        sys.exit()
+    if not os.path.isdir(sys.argv[2]):
+        os.makedirs(sys.argv[2])
+
+    if not os.path.exists(sys.argv[1]):
+        os.makedirs(sys.argv[1])
+
+        
     if os.path.isfile(sys.argv[1]):
         # If tar file
         if sys.argv[1].split('.')[-1] == 'tar':
