@@ -15,28 +15,28 @@ def zoom_out(filename, zoom):
     origin_x = tile_x * 2
     origin_y = tile_y * 2
 
-    # if not os.path.isfile(
-    #         '{}{}/{}/{}.jpg'.format(sys.argv[2], zoom, tile_y, tile_x)):
-    os.makedirs('{}{}/{}'.format(sys.argv[2], zoom, tile_y), exist_ok=True)
+    if not os.path.isfile(
+            '{}{}/{}/{}.jpg'.format(sys.argv[2], zoom, tile_y, tile_x)):
+        os.makedirs('{}{}/{}'.format(sys.argv[2], zoom, tile_y), exist_ok=True)
 
-    tile_image = Image.new('RGB', (512, 512))
-    for x_adj in range(2):
-        for y_adj in range(2):
-            try:
-                paste_image = Image.open('{}{}/{}/{}.jpg'.format(
-                    sys.argv[2], zoom+1, origin_y+y_adj, origin_x+x_adj))
-            except FileNotFoundError:
-                paste_image = Image.new('RGB', (256, 256))
+        tile_image = Image.new('RGB', (512, 512))
+        for x_adj in range(2):
+            for y_adj in range(2):
+                try:
+                    paste_image = Image.open('{}{}/{}/{}.jpg'.format(
+                        sys.argv[2], zoom+1, origin_y+y_adj, origin_x+x_adj))
+                except FileNotFoundError:
+                    paste_image = Image.new('RGB', (256, 256))
 
-            tile_image.paste(
-                paste_image,
-                (x_adj*256, y_adj*256))
+                tile_image.paste(
+                    paste_image,
+                    (x_adj*256, y_adj*256))
 
-    tile_image.resize((256, 256)).save('{}{}/{}/{}.jpg'.format(
-        sys.argv[2], zoom, tile_y, tile_x))
+        tile_image.resize((256, 256)).save('{}{}/{}/{}.jpg'.format(
+            sys.argv[2], zoom, tile_y, tile_x))
 
-    print("Saved tile image to {}{}/{}/{}.jpg".format(
-        sys.argv[2], zoom, tile_y, tile_x))
+    # print("Saved tile image to {}{}/{}/{}.jpg".format(
+        # sys.argv[2], zoom, tile_y, tile_x))
 
 def chunk_coordinates(filename):
     """Extract chunk coordinates         for x_adj in range(4):
@@ -73,23 +73,24 @@ def chunk_to_tiles(chunk, chunkname=None):
     tile_x = chunk_x*4
     tile_y = chunk_y*4
 
-    # if not os.path.isfile(
-    #         '{}{}/{}/{}.jpg'.format(sys.argv[2], 10, tile_y, tile_x)):
-    for x_adj in range(4):
-        for y_adj in range(4):
-            os.makedirs(
-                '{}{}/{}'.format(
-                    sys.argv[2], 10, tile_y+y_adj),
-                exist_ok=True)
+    if not os.path.isfile(
+            '{}{}/{}/{}.jpg'.format(sys.argv[2], 10, tile_y, tile_x)):
 
-            chunk_image.crop(
-                (
-                    x_adj*256,
-                    y_adj*256,
-                    (x_adj+1)*256,
-                    (y_adj+1)*256)
-                ).save('{}{}/{}/{}.jpg'.format(
-                    sys.argv[2], 10, tile_y+y_adj, tile_x+x_adj))
-            
-            print("Saved tile image to {}{}/{}/{}.jpg".format(sys.argv[2], 10, tile_y, tile_x))
+        for x_adj in range(4):
+            for y_adj in range(4):
+                os.makedirs(
+                    '{}{}/{}'.format(
+                        sys.argv[2], 10, tile_y+y_adj),
+                    exist_ok=True)
+
+                chunk_image.crop(
+                    (
+                        x_adj*256,
+                        y_adj*256,
+                        (x_adj+1)*256,
+                        (y_adj+1)*256)
+                    ).save('{}{}/{}/{}.jpg'.format(
+                        sys.argv[2], 10, tile_y+y_adj, tile_x+x_adj))
+                
+                # print("Saved tile image to {}{}/{}/{}.jpg".format(sys.argv[2], 10, tile_y, tile_x))
 

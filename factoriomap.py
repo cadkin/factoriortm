@@ -25,7 +25,7 @@ Usage: python3 factoriomap.py [source] [destination]
 '''
 class EventHandler(FileSystemEventHandler):
     def on_modified(self, event):
-        if event.is_directory:
+        if not event.is_directory:
             print("event with file {}, type {}".format(event.src_path, event.event_type))
             # Perform the modification to the changed file
             chunk_to_tiles(event.src_path)
@@ -35,7 +35,7 @@ class EventHandler(FileSystemEventHandler):
                 zoom_out(tile, zoom)
 
     def on_created(self, event):
-        if event.is_directory:
+        if not event.is_directory:
             print("event with file {}, type {}".format(event.src_path, event.event_type))
             # Perform the modification to the changed file
             chunk_to_tiles(event.src_path)
