@@ -50,4 +50,5 @@ With the mod installed and the script running, the map can now be viewed:
 - Script does not render tiles consistently at any zoom greater than the closest.
 - Webpage does not refresh quickly due to caching by the browser. Currently, this can be worked around by refreshing the page.
 - Generated images follow the time of day in game. As such, this can create a jarring difference between tiles taken at night and tiles taken during the day.
-- Setup is NOT elegant at all.
+- Due to using the seed as the key for the mapdata, only one map can exist per seed. Otherwise, information between the two saves will be mixed.
+- Setup is not elegant at all.

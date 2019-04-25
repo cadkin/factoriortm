@@ -1,6 +1,6 @@
 // Set path information here.
 var mapSeed = 1234567890
-var gamePath = "/home/dd/factorio/"
+var gamePath = "factorio/"
 
 //---------------------------
 
